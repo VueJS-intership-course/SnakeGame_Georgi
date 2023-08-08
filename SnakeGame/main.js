@@ -1,5 +1,6 @@
 import { Move } from "./SnakeCommands/snakeCommand.js";
 import { Apple } from "./fruit/apple.js";
+import { Scoreboard } from "./scoreboard/scoreboard.js";
 
 class Snake {
     static appleIsEaten = false;
@@ -18,7 +19,7 @@ class Snake {
         if (!this.currName) {
             this.currName = prompt('Enter your name', '');
             if (!this.currName) {
-                throw new Error('You should enter a valid name!')
+                alert(new Error('You should enter a valid name!'))
             }
             localStorage.setItem(this.currName, 0);
         } else {
@@ -128,20 +129,20 @@ class Snake {
     moveOnItsOwn() {
         const dx = this.currentMoveDirection.dx;
         const dy = this.currentMoveDirection.dy;
-    
+
         const newHeadPosition = {
             x: this.positionQueue[0].x + dx,
             y: this.positionQueue[0].y + dy,
             width: parseFloat(this.rectangles[0].getAttribute('width')),
             height: parseFloat(this.rectangles[0].getAttribute('height')),
         };
-    
+
         const apple = document.getElementById('apple');
         const appleX = parseFloat(apple.getAttribute('x'));
         const appleY = parseFloat(apple.getAttribute('y'));
         const appleWidth = parseFloat(apple.getAttribute('width'));
         const appleHeight = parseFloat(apple.getAttribute('height'));
-    
+
         if (
             newHeadPosition.x < appleX + appleWidth &&
             newHeadPosition.x + newHeadPosition.width > appleX &&
@@ -150,25 +151,25 @@ class Snake {
         ) {
             Apple.removeApple();
             this.points += 15;
-    
+
             const lastRect = this.rectangles[this.rectangles.length - 1];
             const newX = parseFloat(lastRect.getAttribute('x')) + dx;
             const newY = parseFloat(lastRect.getAttribute('y')) + dy;
             Apple.appleIsEaten = true;
-    
+
             this.addToSnake(newX, newY);
             this.positionQueue.push({ x: newX, y: newY });
         }
-    
+
         this.positionQueue.unshift(newHeadPosition);
         this.positionQueue = this.positionQueue.slice(0, this.rectangles.length);
-    
+
         for (let i = 0; i < this.rectangles.length; i++) {
             this.rectangles[i].setAttribute('x', this.positionQueue[i].x);
             this.rectangles[i].setAttribute('y', this.positionQueue[i].y);
         }
     }
-    
+
 
     gameLoop(time = 150) {
 
@@ -207,3 +208,5 @@ btn.addEventListener('click', () => {
     }
 }, true);
 
+const showScoreBoardBtn = document.querySelector('.scoreboardBtn');
+showScoreBoardBtn.addEventListener('click', Scoreboard.showScoreboard.bind(Scoreboard));
