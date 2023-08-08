@@ -1,5 +1,6 @@
 import { Move } from "./SnakeCommands/snakeCommand.js";
 import { Apple } from "./fruit/apple.js";
+import { Scoreboard } from "./scoreboard/scoreboard.js";
 
 class Snake {
     static appleIsEaten = false;
@@ -207,3 +208,5 @@ btn.addEventListener('click', () => {
     }
 }, true);
 
+const showScoreBoardBtn = document.querySelector('.scoreboardBtn');
+showScoreBoardBtn.addEventListener('click', Scoreboard.showScoreboard)
