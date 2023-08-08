@@ -1,3 +1,15 @@
 .area {
   background-color: rgb(130, 230, 130);
 }
+
+.scoreBoard {
+  display: none;
+  margin-top: 2rem;
+  background-color: yellowgreen;
+  border: 2px solid black;
+  max-width: 400px;
+}
+
+.playersScore {
+  list-style: none;
+}
