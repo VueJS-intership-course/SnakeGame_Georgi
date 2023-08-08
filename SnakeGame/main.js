@@ -209,4 +209,8 @@ btn.addEventListener('click', () => {
 }, true);
 
 const showScoreBoardBtn = document.querySelector('.scoreboardBtn');
+<<<<<<< HEAD
 showScoreBoardBtn.addEventListener('click', Scoreboard.showScoreboard.bind(Scoreboard));
+=======
+showScoreBoardBtn.addEventListener('click', Scoreboard.showScoreboard)
+>>>>>>> 06f6a04d2973117607869ecab2d7fc7d25b9b864
