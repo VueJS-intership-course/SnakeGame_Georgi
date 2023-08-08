@@ -15,13 +15,13 @@ class Snake {
     }
 
     addToScoreboard() {
-        if(!this.currName) {
+        if (!this.currName) {
             this.currName = prompt('Enter your name', '');
-            if(!this.currName) {
-                return;
+            if (!this.currName) {
+                throw new Error('You should enter a valid name!')
             }
             localStorage.setItem(this.currName, 0);
-        }else {
+        } else {
             return
         }
     }
@@ -91,6 +91,7 @@ class Snake {
             localStorage.setItem(this.currName, this.points);
             alert(`Game Over,${this.currName}, your reached ${this.points} points!`);
             window.location.reload();
+            this.currName = '';
         }
 
         const appleX = parseFloat(apple.getAttribute('x'));
@@ -127,27 +128,54 @@ class Snake {
     moveOnItsOwn() {
         const dx = this.currentMoveDirection.dx;
         const dy = this.currentMoveDirection.dy;
-
+    
         const newHeadPosition = {
             x: this.positionQueue[0].x + dx,
             y: this.positionQueue[0].y + dy,
+            width: parseFloat(this.rectangles[0].getAttribute('width')),
+            height: parseFloat(this.rectangles[0].getAttribute('height')),
         };
-
+    
+        const apple = document.getElementById('apple');
+        const appleX = parseFloat(apple.getAttribute('x'));
+        const appleY = parseFloat(apple.getAttribute('y'));
+        const appleWidth = parseFloat(apple.getAttribute('width'));
+        const appleHeight = parseFloat(apple.getAttribute('height'));
+    
+        if (
+            newHeadPosition.x < appleX + appleWidth &&
+            newHeadPosition.x + newHeadPosition.width > appleX &&
+            newHeadPosition.y < appleY + appleHeight &&
+            newHeadPosition.y + newHeadPosition.height > appleY
+        ) {
+            Apple.removeApple();
+            this.points += 15;
+    
+            const lastRect = this.rectangles[this.rectangles.length - 1];
+            const newX = parseFloat(lastRect.getAttribute('x')) + dx;
+            const newY = parseFloat(lastRect.getAttribute('y')) + dy;
+            Apple.appleIsEaten = true;
+    
+            this.addToSnake(newX, newY);
+            this.positionQueue.push({ x: newX, y: newY });
+        }
+    
         this.positionQueue.unshift(newHeadPosition);
-
         this.positionQueue = this.positionQueue.slice(0, this.rectangles.length);
-
+    
         for (let i = 0; i < this.rectangles.length; i++) {
             this.rectangles[i].setAttribute('x', this.positionQueue[i].x);
             this.rectangles[i].setAttribute('y', this.positionQueue[i].y);
         }
     }
+    
 
     gameLoop(time = 150) {
 
         if (this.autoMoveEnabled) {
             this.moveOnItsOwn();
         }
+
 
         if (Apple.appleIsEaten) {
             time -= 5;
@@ -174,7 +202,7 @@ const btn = document.querySelector('.btn');
 btn.addEventListener('click', () => {
     snake.toggleAutoMove();
     snake.gameLoop();
-    if(!snake.currName) {
+    if (!snake.currName) {
         snake.addToScoreboard();
     }
 }, true);
