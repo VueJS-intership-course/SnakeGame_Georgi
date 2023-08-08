@@ -174,6 +174,8 @@ const btn = document.querySelector('.btn');
 btn.addEventListener('click', () => {
     snake.toggleAutoMove();
     snake.gameLoop();
-    snake.addToScoreboard()
+    if(!snake.currName) {
+        snake.addToScoreboard();
+    }
 }, true);
 
