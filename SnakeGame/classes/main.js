@@ -1,5 +1,5 @@
 import * as constants from './constants.js';
-import { Snake } from './snake.js';
+import { Snake } from './snake/snake.js';
 import { Scoreboard } from './scoreboard/scoreboard.js';
 
 const snakeGame = new Snake(constants.GRID_SIZE);

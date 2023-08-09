@@ -1,7 +1,7 @@
-import * as constants from './constants.js';
-import { Apple } from './fruit/apple.js';
-import { Player } from './player/Player.js';
-import { Scoreboard } from './scoreboard/scoreboard.js';
+import * as constants from '../constants.js';
+import { Apple } from '../fruit/apple.js';
+import { Player } from '../player/Player.js';
+import { Scoreboard } from '../scoreboard/scoreboard.js';
 
 export class Snake {
     points = 0;
@@ -130,7 +130,7 @@ export class Snake {
         if (!this.gameOver) {
             requestAnimationFrame(() => this.gameLoop());
         } else {
-            alert(`Game Over,${this.currName}, your reached ${this.points} points!`);
+            alert(`Game Over,${this.currPlayer}, your reached ${this.points} points!`);
             localStorage.setItem(this.currPlayer, this.points);
             console.log(this.currPlayer)
         }

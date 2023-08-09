@@ -4,6 +4,7 @@ export class Player {
     }
 
     addToScoreboard() {
+        console.log(this.currPlayer);
         localStorage.setItem(this.currPlayer, 0);
     }
 }
