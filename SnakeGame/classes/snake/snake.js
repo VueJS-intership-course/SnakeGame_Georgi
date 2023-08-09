@@ -12,7 +12,7 @@ export class Snake {
         this.grid = this.createEmptyGrid();
         this.snake = constants.SNAKE;
         this.fruit = Math.random() > 0.2 ? new Apple() : new Banana();
-        this.fruitCoordinates = this.fruit.add()
+        this.fruitCoordinates = this.fruit.add();
         this.direction = constants.STARTING_MOVEMENT;
         this.gameOver = false;
         this.frameInterval = constants.GAME_LOOP_INTERVAL_TIME / constants.GAME_LOOP_FPS;
@@ -73,7 +73,6 @@ export class Snake {
         }
 
         if (this.grid[newHead.y][newHead.x] === 1) {
-            console.log('Collision detected');
             this.gameOver = true;
             return;
         }
@@ -88,7 +87,7 @@ export class Snake {
             } else if (this.fruit instanceof Banana) {
                 this.points += 45;
             }
-            this.fruitCoordinates = Math.random() > 0.5 ? new Apple().add() : new Banana().add();
+            this.fruitCoordinates = Math.random() > 0.3 ? new Apple().add() : new Banana().add();
         } else {
             this.grid[this.snake[this.snake.length - 1].y][this.snake[this.snake.length - 1].x] = 0;
             this.snake.pop();
@@ -107,11 +106,7 @@ export class Snake {
                 if (this.grid[y][x] === 1) {
                     cell.classList.add('snake');
                 } else if (x === this.fruitCoordinates.x && y === this.fruitCoordinates.y) {
-                    if (this.fruit instanceof Apple) {
-                        cell.classList.add('apple')
-                    } else if (this.fruit instanceof Banana) {
-                        cell.classList.add('banana')
-                    }
+                   cell.classList.add(this.fruit.className)
                 }
                 gridElement.appendChild(cell);
             }
@@ -135,7 +130,6 @@ export class Snake {
             alert(`Game Over,${this.currPlayer}, your reached ${this.points} points!`);
             window.location.reload()
             localStorage.setItem(this.currPlayer, this.points);
-            console.log(this.currPlayer)
         }
     }
 
