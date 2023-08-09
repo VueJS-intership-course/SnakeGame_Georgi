@@ -20,6 +20,10 @@
   background-color: red; 
 }
 
+.banana {
+  background-color: yellow;
+}
+
 .scoreBoard {
   display: none;
   text-align: center;

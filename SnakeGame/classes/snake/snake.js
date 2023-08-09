@@ -1,6 +1,8 @@
 import * as constants from '../constants.js';
-import { Apple } from '../fruit/apple.js';
+import { Apple } from '../fruit/apple/Apple.js';
+import { Banana } from '../fruit/banana/Banana.js';
 import { Player } from '../player/Player.js';
+import { Input } from '../input/input.js';
 
 export class Snake {
     points = 0;
@@ -9,10 +11,11 @@ export class Snake {
         this.gridSize = gridSize;
         this.grid = this.createEmptyGrid();
         this.snake = constants.SNAKE;
-        this.apple = Apple.add();
+        this.fruit = Math.random() > 0.2 ? new Apple() : new Banana();
+        this.fruitCoordinates = this.fruit.add()
         this.direction = constants.STARTING_MOVEMENT;
         this.gameOver = false;
-        this.frameInterval = 1000 / 3;
+        this.frameInterval = constants.GAME_LOOP_INTERVAL_TIME / constants.GAME_LOOP_FPS;
         this.lastFrameTime = performance.now();
 
         this.render()
@@ -42,20 +45,12 @@ export class Snake {
     }
 
     setupListeners() {
-        document.addEventListener('keydown', (event) => this.handleUserInput(event));
+        document.addEventListener('keydown', (event) => {
+            let input = new Input(event, this.direction);
+            this.direction = input.handleUserInput()
+        });
     }
 
-    handleUserInput(event) {
-        if (event.code === 'ArrowUp' && this.direction.y !== 1) {
-            this.direction = constants.DIRECTION_UP;
-        } else if (event.code === 'ArrowDown' && this.direction.y !== -1) {
-            this.direction = constants.DIRECTION_DOWN;
-        } else if (event.code === 'ArrowLeft' && this.direction.x !== 1) {
-            this.direction = constants.DIRECTION_LEFT;
-        } else if (event.code === 'ArrowRight' && this.direction.x !== -1) {
-            this.direction = constants.DIRECTION_RIGHT;
-        }
-    }
 
     updateSnakePosition() {
         if (this.gameOver) return;
@@ -87,9 +82,13 @@ export class Snake {
 
         this.grid[newHead.y][newHead.x] = 1;
 
-        if (newHead.x === this.apple.x && newHead.y === this.apple.y) {
-            this.points += 15;
-            this.apple = Apple.add();
+        if (newHead.x === this.fruitCoordinates.x && newHead.y === this.fruitCoordinates.y) {
+            if (this.fruit instanceof Apple) {
+                this.points += 15;
+            } else if (this.fruit instanceof Banana) {
+                this.points += 45;
+            }
+            this.fruitCoordinates = Math.random() > 0.5 ? new Apple().add() : new Banana().add();
         } else {
             this.grid[this.snake[this.snake.length - 1].y][this.snake[this.snake.length - 1].x] = 0;
             this.snake.pop();
@@ -107,8 +106,12 @@ export class Snake {
                 cell.className = 'cell';
                 if (this.grid[y][x] === 1) {
                     cell.classList.add('snake');
-                } else if (x === this.apple.x && y === this.apple.y) {
-                    cell.classList.add('apple');
+                } else if (x === this.fruitCoordinates.x && y === this.fruitCoordinates.y) {
+                    if (this.fruit instanceof Apple) {
+                        cell.classList.add('apple')
+                    } else if (this.fruit instanceof Banana) {
+                        cell.classList.add('banana')
+                    }
                 }
                 gridElement.appendChild(cell);
             }
