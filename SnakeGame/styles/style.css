@@ -22,12 +22,26 @@
 
 .scoreBoard {
   display: none;
+  text-align: center;
   margin-top: 2rem;
-  background-color: yellowgreen;
+  padding: 1rem;
+  background-color: rgb(203, 255, 98);
   border: 2px solid black;
-  max-width: 400px;
+  width: fit-content;
 }
 
 .playersScore {
   list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+
+.playersScore li {
+  padding: 0.5rem;
+}
+
+
+.playersScore li:not(:last-of-type) {
+  border-bottom: 1px solid black;
 }

@@ -1,7 +1,6 @@
 import * as constants from '../constants.js';
 import { Apple } from '../fruit/apple.js';
 import { Player } from '../player/Player.js';
-import { Scoreboard } from '../scoreboard/scoreboard.js';
 
 export class Snake {
     points = 0;
@@ -9,15 +8,14 @@ export class Snake {
     constructor(gridSize) {
         this.gridSize = gridSize;
         this.grid = this.createEmptyGrid();
-        this.snake = [{ x: 1, y: 0 }];
+        this.snake = constants.SNAKE;
         this.apple = Apple.add();
         this.direction = constants.STARTING_MOVEMENT;
         this.gameOver = false;
-        this.frameInterval = 1000 / 5;
+        this.frameInterval = 1000 / 3;
         this.lastFrameTime = performance.now();
 
-        this.setupListeners();
-        this.gameLoop();
+        this.render()
     }
 
     addPlayer() {
@@ -28,6 +26,7 @@ export class Snake {
             alert('You should enter a valid name!');
         } else {
             const player = new Player(this.currPlayer);
+            console.log(this.currPlayer)
             player.addToScoreboard(self.currPlayer);
         }
     }
@@ -48,13 +47,13 @@ export class Snake {
 
     handleUserInput(event) {
         if (event.code === 'ArrowUp' && this.direction.y !== 1) {
-            this.direction = { x: 0, y: -1 };
+            this.direction = constants.DIRECTION_UP;
         } else if (event.code === 'ArrowDown' && this.direction.y !== -1) {
-            this.direction = { x: 0, y: 1 };
+            this.direction = constants.DIRECTION_DOWN;
         } else if (event.code === 'ArrowLeft' && this.direction.x !== 1) {
-            this.direction = { x: -1, y: 0 };
+            this.direction = constants.DIRECTION_LEFT;
         } else if (event.code === 'ArrowRight' && this.direction.x !== -1) {
-            this.direction = { x: 1, y: 0 };
+            this.direction = constants.DIRECTION_RIGHT;
         }
     }
 
@@ -131,11 +130,11 @@ export class Snake {
             requestAnimationFrame(() => this.gameLoop());
         } else {
             alert(`Game Over,${this.currPlayer}, your reached ${this.points} points!`);
+            window.location.reload()
             localStorage.setItem(this.currPlayer, this.points);
             console.log(this.currPlayer)
         }
     }
-
 
     run() {
         this.setupListeners();

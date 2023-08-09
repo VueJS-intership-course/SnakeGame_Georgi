@@ -6,7 +6,8 @@ const snakeGame = new Snake(constants.GRID_SIZE);
 const startBtn = document.querySelector('.start-game');
 
 startBtn.addEventListener('click', () => {
-    snakeGame.addPlayer()
+    snakeGame.addPlayer();
+    snakeGame.run()
 });
 
 const scoreboardBtn = document.querySelector('.scoreboardBtn');
