@@ -1,6 +1,6 @@
 export const STARTING_MOVEMENT = { x: 1, y: 0 };
 export const GRID_SIZE = 20;
-export const SNAKE = [{ x: 1, y: 0 }];
+export const SNAKE_STARTING_POSITION = [{ x: 1, y: 0 }];
 export const DIRECTION_UP = { x: 0, y: -1 };
 export const DIRECTION_DOWN = { x: 0, y: 1 };
 export const DIRECTION_LEFT = { x: -1, y: 0 };
@@ -9,3 +9,4 @@ export const APPLE_ClassName = 'apple';
 export const BANANA_ClassName = 'banana';
 export const GAME_LOOP_FPS = 4;
 export const GAME_LOOP_INTERVAL_TIME = 1000;
+export const SNAKE_ClassName = 'snake';

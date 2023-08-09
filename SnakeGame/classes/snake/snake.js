@@ -10,7 +10,7 @@ export class Snake {
     constructor(gridSize) {
         this.gridSize = gridSize;
         this.grid = this.createEmptyGrid();
-        this.snake = constants.SNAKE;
+        this.snake = constants.SNAKE_STARTING_POSITION;
         this.fruit = Math.random() > 0.2 ? new Apple() : new Banana();
         this.fruitCoordinates = this.fruit.add();
         this.direction = constants.STARTING_MOVEMENT;
@@ -104,7 +104,7 @@ export class Snake {
                 const cell = document.createElement('div');
                 cell.className = 'cell';
                 if (this.grid[y][x] === 1) {
-                    cell.classList.add('snake');
+                    cell.classList.add(constants.SNAKE_ClassName);
                 } else if (x === this.fruitCoordinates.x && y === this.fruitCoordinates.y) {
                    cell.classList.add(this.fruit.className)
                 }
