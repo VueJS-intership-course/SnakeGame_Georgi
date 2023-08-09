@@ -1,24 +1,21 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="style.css">
-  <script type="module" src="/main.js" defer></script>
-  <title>Snake Game</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/style.css">
+    <title>Snake Game</title>
 </head>
-
 <body>
-  <svg width="500" height="500" class="area"></svg>
-  <br>
-  <button class="btn">start game</button>
-  <button class="scoreboardBtn">scoreboard</button>
-  <div class="scoreBoard">
-    <ul class="playersScore"></ul>
-  </div>
-
+    <div id="grid" class="grid"></div>
+    <script type="module" src="./classes/main.js"></script>
+    <br/>
+    <button class="start-game">Start game</button>
+    <button class="scoreboardBtn">Scoreboard</button>
+    <div class="scoreBoard">
+      <ul class="playersScore">
+  
+      </ul>
+    </div>
 </body>
-
 </html>

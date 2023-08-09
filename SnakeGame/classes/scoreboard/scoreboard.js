@@ -16,7 +16,7 @@ export class Scoreboard {
 
             Object.keys(localStorage).forEach(key => {
                 const li = document.createElement('li');
-                li.textContent = `Player: ${key} => score: ${localStorage.getItem(key)}`;
+                li.textContent = `Player: ${key} => score: ${localStorage.getItem(key)} points`;
                 ul.append(li);
             });
         } else if (getComputedStyle(scoreBoard).display === 'block') {
