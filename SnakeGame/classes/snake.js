@@ -142,16 +142,3 @@ export class Snake {
         this.gameLoop();
     }
 }
-
-const snakeGame = new SnakeGame(constants.GRID_SIZE);
-const startBtn = document.querySelector('.start-game');
-
-startBtn.addEventListener('click', () => {
-    // snakeGame.run();
-    snakeGame.addPlayer()
-});
-
-const scoreboardBtn = document.querySelector('.scoreboardBtn');
-scoreboardBtn.addEventListener('click', () => Scoreboard.showScoreboard())
-
-
