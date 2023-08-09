@@ -26,7 +26,7 @@ export class Snake {
         this.currPlayer = prompt('Enter your name', '');
 
         if (!this.currPlayer) {
-            alert('You should enter a valid name!');
+            alert(new Error('You should enter a valid name!'));
         } else {
             const player = new Player(this.currPlayer);
             console.log(this.currPlayer)
