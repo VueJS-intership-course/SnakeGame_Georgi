@@ -9,10 +9,3 @@ export class Fruit {
 }
 
 
-export class Banana extends Fruit {
-    constructor() {
-        super()
-        this.className = constants.BANANA_ClassName
-    }
-}
-

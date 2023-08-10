@@ -16,5 +16,8 @@ export class Input {
     } else if (this.event.code === 'ArrowRight' && this.direction.x !== -1) {
       return constants.DIRECTION_RIGHT;
     }
+
+    return this.direction
+
   }
 }

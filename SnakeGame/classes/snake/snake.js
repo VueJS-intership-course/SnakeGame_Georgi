@@ -3,6 +3,7 @@ import { Apple } from '../fruit/apple/Apple.js';
 import { Banana } from '../fruit/banana/Banana.js';
 import { Player } from '../player/Player.js';
 import { Input } from '../input/input.js';
+import { Scoreboard } from '../scoreboard/scoreboard.js';
 
 export class Snake {
     points = 0;
@@ -14,6 +15,7 @@ export class Snake {
         this.fruit = Math.random() > 0.2 ? new Apple() : new Banana();
         this.fruitCoordinates = this.fruit.add();
         this.direction = constants.STARTING_MOVEMENT;
+
         this.gameOver = false;
         this.frameInterval = constants.GAME_LOOP_INTERVAL_TIME / constants.GAME_LOOP_FPS;
         this.lastFrameTime = performance.now();
@@ -29,7 +31,6 @@ export class Snake {
             alert(new Error('You should enter a valid name!'));
         } else {
             const player = new Player(this.currPlayer);
-            console.log(this.currPlayer)
             player.addToScoreboard(self.currPlayer);
         }
     }
@@ -49,6 +50,12 @@ export class Snake {
             let input = new Input(event, this.direction);
             this.direction = input.handleUserInput()
         });
+    }
+
+
+    liveScore(fruitScore) {
+        let scoreBoard = new Scoreboard(fruitScore);
+        scoreBoard.ShowlivePoints();
     }
 
 
@@ -82,11 +89,8 @@ export class Snake {
         this.grid[newHead.y][newHead.x] = 1;
 
         if (newHead.x === this.fruitCoordinates.x && newHead.y === this.fruitCoordinates.y) {
-            if (this.fruit instanceof Apple) {
-                this.points += 15;
-            } else if (this.fruit instanceof Banana) {
-                this.points += 45;
-            }
+            this.points += this.fruit.score;
+            this.liveScore(this.fruit.score)
             this.fruitCoordinates = Math.random() > 0.3 ? new Apple().add() : new Banana().add();
         } else {
             this.grid[this.snake[this.snake.length - 1].y][this.snake[this.snake.length - 1].x] = 0;
@@ -104,9 +108,9 @@ export class Snake {
                 const cell = document.createElement('div');
                 cell.className = 'cell';
                 if (this.grid[y][x] === 1) {
-                    cell.classList.add(constants.SNAKE_ClassName);
+                    cell.classList.add('snake');
                 } else if (x === this.fruitCoordinates.x && y === this.fruitCoordinates.y) {
-                   cell.classList.add(this.fruit.className)
+                    cell.classList.add(this.fruit.className)
                 }
                 gridElement.appendChild(cell);
             }
@@ -123,6 +127,7 @@ export class Snake {
             this.updateSnakePosition();
             this.render();
         }
+
 
         if (!this.gameOver) {
             requestAnimationFrame(() => this.gameLoop());

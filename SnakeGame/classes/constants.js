@@ -1,5 +1,7 @@
 export const STARTING_MOVEMENT = { x: 1, y: 0 };
-export const GRID_SIZE = 20;
+export const DEFAULT_GRID_SIZE = 20;
+export const DEFAULT_GRID_CELLS_SIZE = 20;
+export const GRID_SIZE = prompt('Write down your map length and width', DEFAULT_GRID_SIZE);
 export const SNAKE_STARTING_POSITION = [{ x: 1, y: 0 }];
 export const DIRECTION_UP = { x: 0, y: -1 };
 export const DIRECTION_DOWN = { x: 0, y: 1 };
@@ -10,3 +12,4 @@ export const BANANA_ClassName = 'banana';
 export const GAME_LOOP_FPS = 4;
 export const GAME_LOOP_INTERVAL_TIME = 1000;
 export const SNAKE_ClassName = 'snake';
+export const LIVE_SCORE_STARTING_VALUE = 0;

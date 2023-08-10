@@ -1,10 +1,25 @@
 import * as constants from './constants.js';
 import { Snake } from './snake/snake.js';
 import { Scoreboard } from './scoreboard/scoreboard.js';
-let gameIsRunning = false
 
 
-const snakeGame = new Snake(constants.GRID_SIZE);
+let area = document.getElementById('grid');
+let gameIsRunning = false;
+let snakeGame;
+
+
+if (constants.GRID_SIZE) {
+    snakeGame = new Snake(constants.GRID_SIZE);
+    area.style.gridTemplateRows = `repeat(${constants.GRID_SIZE}, ${constants.DEFAULT_GRID_CELLS_SIZE}px)`;
+    area.style.gridTemplateColumns = `repeat(${constants.GRID_SIZE}, ${constants.DEFAULT_GRID_CELLS_SIZE}px)`;
+
+} else {
+    snakeGame = new Snake(constants.DEFAULT_GRID_SIZE);
+    area.style.gridTemplateRows = `repeat(${constants.DEFAULT_GRID_SIZE}, ${constants.DEFAULT_GRID_CELLS_SIZE}px);`;
+    area.style.gridTemplateColumns = `repeat(${constants.DEFAULT_GRID_SIZE}, ${constants.DEFAULT_GRID_CELLS_SIZE}px);`;
+}
+
+
 const startBtn = document.querySelector('.start-game');
 
 startBtn.addEventListener('click', () => {
