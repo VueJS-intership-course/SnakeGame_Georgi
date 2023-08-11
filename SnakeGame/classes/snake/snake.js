@@ -135,8 +135,17 @@ export class Snake {
         } else {
             alert(`Game Over,${this.currPlayer}, your reached ${this.points} points!`);
             window.location.reload()
-            localStorage.setItem(this.currPlayer, this.points);
-            localStorage.setItem(this.currPlayer, this.points);
+            const storedArrayJSON = localStorage.getItem(this.currPlayer);
+
+            if (storedArrayJSON) {
+                const storedArray = storedArrayJSON.split(',')
+            
+                storedArray[0] = this.points;
+            
+                localStorage.setItem(this.currPlayer, storedArray);
+            } else {
+                console.log('No stored array found.');
+            }
         }
     }
 
