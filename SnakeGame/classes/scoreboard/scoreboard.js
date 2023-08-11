@@ -5,7 +5,6 @@ export class Scoreboard {
         this.points = points;
     }
 
-
     static showScoreboard() {
         const scoreBoard = document.querySelector('.scoreBoard');
         const ul = document.querySelector('.playersScore');
@@ -21,22 +20,26 @@ export class Scoreboard {
                 ul.append(h1El)
             }
 
-            Object.keys(localStorage).forEach(key => {
+            const scores = Object.keys(localStorage).map(key => ({
+                player: key,
+                score: parseInt(localStorage.getItem(key).split(',')[0]),
+                date: localStorage.getItem(key).split(',')[1]
+            }));
+
+            scores.sort((a, b) => b.score - a.score); 
+
+            scores.forEach(score => {
                 const li = document.createElement('li');
-                li.textContent = `Player: ${key} => score: ${localStorage.getItem(key).split(',')[0]} points, date:${localStorage.getItem(key).split(',')[1]}`;
+                li.textContent = `Player: ${score.player} => score: ${score.score} points, date: ${score.date}`;
                 ul.append(li);
             });
         } else if (getComputedStyle(scoreBoard).display === 'block') {
             scoreBoard.style.display = 'none';
         }
-
     }
-
 
     ShowlivePoints() {
         const livePoints = document.querySelector('.live-points');
-
         livePoints.textContent = Number(livePoints.textContent) + this.points;
-
     }
 }
