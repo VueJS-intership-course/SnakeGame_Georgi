@@ -23,7 +23,7 @@ export class Scoreboard {
 
             Object.keys(localStorage).forEach(key => {
                 const li = document.createElement('li');
-                li.textContent = `Player: ${key} => score: ${localStorage.getItem(key)} points`;
+                li.textContent = `Player: ${key} => score: ${localStorage.getItem(key).split(',')[0]} points, date:${localStorage.getItem(key).split(',')[1]}`;
                 ul.append(li);
             });
         } else if (getComputedStyle(scoreBoard).display === 'block') {

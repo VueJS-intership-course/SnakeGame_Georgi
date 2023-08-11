@@ -94,6 +94,7 @@ export class Snake {
             this.fruitCoordinates = Math.random() > 0.3 ? new Apple().add() : new Banana().add();
         } else {
             this.grid[this.snake[this.snake.length - 1].y][this.snake[this.snake.length - 1].x] = 0;
+            this.frameInterval -= 0.2
             this.snake.pop();
         }
     }
@@ -134,6 +135,7 @@ export class Snake {
         } else {
             alert(`Game Over,${this.currPlayer}, your reached ${this.points} points!`);
             window.location.reload()
+            localStorage.setItem(this.currPlayer, this.points);
             localStorage.setItem(this.currPlayer, this.points);
         }
     }
