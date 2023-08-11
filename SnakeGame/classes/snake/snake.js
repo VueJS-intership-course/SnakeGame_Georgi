@@ -4,6 +4,7 @@ import { Banana } from '../fruit/banana/Banana.js';
 import { Player } from '../player/Player.js';
 import { Input } from '../input/input.js';
 import { Scoreboard } from '../scoreboard/scoreboard.js';
+import { Database } from '../Database/database.js';
 
 export class Snake {
     points = 0;
@@ -20,7 +21,7 @@ export class Snake {
         this.frameInterval = constants.GAME_LOOP_INTERVAL_TIME / constants.GAME_LOOP_FPS;
         this.lastFrameTime = performance.now();
 
-        this.render()
+        this.render();
     }
 
     addPlayer() {
@@ -118,7 +119,7 @@ export class Snake {
         }
     }
 
-    gameLoop() {
+    async gameLoop() {
         const currentTime = performance.now();
         const deltaTime = currentTime - this.lastFrameTime;
 
@@ -141,13 +142,15 @@ export class Snake {
                 const storedArray = storedArrayJSON.split(',')
             
                 storedArray[0] = this.points;
-            
-                localStorage.setItem(this.currPlayer, storedArray);
+                
+                Database.getSingleItem(this.currPlayer, this.points)
+                // localStorage.setItem(this.currPlayer, storedArray);
             } else {
                 console.log('No stored array found.');
             }
         }
     }
+
 
     run() {
         this.setupListeners();

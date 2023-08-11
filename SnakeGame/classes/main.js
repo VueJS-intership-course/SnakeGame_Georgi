@@ -1,6 +1,7 @@
 import * as constants from './constants.js';
 import { Snake } from './snake/snake.js';
 import { Scoreboard } from './scoreboard/scoreboard.js';
+import { Database } from './Database/database.js';
 
 
 const backdrop = document.querySelector('.backdrop')
@@ -38,5 +39,4 @@ startBtn.addEventListener('click', () => {
 
 const scoreboardBtn = document.querySelector('.scoreboardBtn');
 scoreboardBtn.addEventListener('click', () => Scoreboard.showScoreboard())
-
-
+Database.initialize()

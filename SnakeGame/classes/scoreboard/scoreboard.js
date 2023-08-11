@@ -1,3 +1,4 @@
+import { Database } from '../Database/database.js';
 import * as constats from '../constants.js';
 
 export class Scoreboard {
@@ -5,7 +6,7 @@ export class Scoreboard {
         this.points = points;
     }
 
-    static showScoreboard() {
+    static async showScoreboard() {
         const scoreBoard = document.querySelector('.scoreBoard');
         const ul = document.querySelector('.playersScore');
 
@@ -17,20 +18,16 @@ export class Scoreboard {
                 ul.innerHTML = '';
                 const h1El = document.createElement('h1');
                 h1El.textContent = 'NO SCORES YET';
-                ul.append(h1El)
+                ul.append(h1El);
             }
 
-            const scores = Object.keys(localStorage).map(key => ({
-                player: key,
-                score: parseInt(localStorage.getItem(key).split(',')[0]),
-                date: localStorage.getItem(key).split(',')[1]
-            }));
+            const scores = await Database.getAll();
 
-            scores.sort((a, b) => b.score - a.score); 
+            scores.sort((a, b) => b.points - a.points);
 
             scores.forEach(score => {
                 const li = document.createElement('li');
-                li.textContent = `Player: ${score.player} => score: ${score.score} points, date: ${score.date}`;
+                li.textContent = `Player: ${score.name} => score: ${score.points} points, date: ${score.date}`;
                 ul.append(li);
             });
         } else if (getComputedStyle(scoreBoard).display === 'block') {

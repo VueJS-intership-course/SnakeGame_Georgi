@@ -1,3 +1,6 @@
+import { Database } from "../Database/database";
+
+
 export class Player {
     constructor(currPlayer) {
         this.currPlayer = currPlayer;
@@ -5,6 +8,8 @@ export class Player {
 
     addToScoreboard() {
         localStorage.setItem(this.currPlayer, [0, this.dateOfPlayersEntry()]);
+        let db = new Database();
+        db.addItem(this.currPlayer, 0, this.dateOfPlayersEntry())
     }
 
     dateOfPlayersEntry() {
